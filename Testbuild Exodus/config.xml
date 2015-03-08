@@ -27,7 +27,7 @@ cd ${SourcePath}
 export BUILD_WITH_COLORS=0
 export USE_CCACHE=1
 export CCACHE_DIR=/ccache/${BuildDev}/${BuildDevice}
-prebuilts/misc/linux-x86/ccache/ccache -M 15G
+prebuilts/misc/linux-x86/ccache/ccache -M 10G
 #prebuilts/misc/linux-x86/ccache/ccache -C
 export USE_PREBUILT_CHROMIUM=1
 export OUT_DIR_COMMON_BASE=/out

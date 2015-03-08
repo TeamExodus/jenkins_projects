@@ -6,7 +6,7 @@
   <properties/>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
@@ -18,6 +18,15 @@
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash
+cd /android/exodus
+thetime=`date +%Y-%m-%d--%H%M%S` #
+repo manifest -o .repo/snapshots/nightly_$thetime.xml -r
+cd .repo/snapshots
+git add nightly_$thetime.xml
+echo &quot;Nightly push for $thetime &quot; &gt;~/snapshotcommit
+git commit -F ~/snapshotcommit
+rm ~/snapshotcommit
+git push exodus HEAD:EXODUS
 cd /android/exodus
 export OUT_DIR_COMMON_BASE=/out
 source build/envsetup.sh
