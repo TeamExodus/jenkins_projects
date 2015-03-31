@@ -15,12 +15,12 @@
     <hudson.tasks.Shell>
       <command>#!/bin/bash
 cd /android/exodus
-BuildVendor=vanir
-BuildDev=exodus
+BuildVendor=new
+BuildDev=new
 BuildDevice=bacon
 BuildJobCount=12
 SourcePath=/android/${BuildDev}
-
+mkdir /ccache/new
 #Buildscript
 cd ${SourcePath}
 
@@ -30,17 +30,18 @@ export CCACHE_DIR=/ccache/${BuildDev}/${BuildDevice}
 prebuilts/misc/linux-x86/ccache/ccache -M 10G
 #prebuilts/misc/linux-x86/ccache/ccache -C
 export USE_PREBUILT_CHROMIUM=1
-export OUT_DIR_COMMON_BASE=/out
 
 source build/envsetup.sh
 if [ -a out/target/product/${BuildDevice}/system/build.prop ]; then
     rm out/target/product/${BuildDevice}/system/build.prop
 fi
-lunch ${BuildVendor}_${BuildDevice}-userdebug
-mka clobber
-export VANIR_PARALLEL_JOBS=&quot;-j$BuildJobCount&quot;
-mka bacon
-</command>
+#lunch ${BuildVendor}_${BuildDevice}-userdebug
+#mka clobber
+make clobber
+#export VANIR_PARALLEL_JOBS=&quot;-j$BuildJobCount&quot;
+#mka bacon
+breakfast bacon
+brunch bacon</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
