@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+#source=/android/exodus-merger
+source=/android/exodus
+cd $source
+
+#echo &apos;Merging vendor/vanir...&apos;
+#cd $source/vendor/vanir
+#git fetch vanir
+#git merge vanir/L5 --no-ff || { echo &apos;*** ERROR *** : vendor/vanir L5 Branch merge failed&apos; ; exit 1; }
+
+repos=(&quot;frameworks/base&quot; &quot;system/core&quot; &quot;device/oneplus/bacon&quot; &quot;bionic&quot; &quot;libcore&quot; &quot;external/tinycompress&quot; &quot;frameworks/av&quot; &quot;device/oppo/msm8974-common&quot; &quot;frameworks/native&quot; &quot;art&quot; &quot;external/skia&quot;)
+for i in &quot;${repos[@]}&quot;
+do
+echo &quot;-----------------------------------&quot;
+echo &quot;Merging ${i}&quot;
+cd $source/${i}
+git fetch cm
+git merge cm/cm-12.0 --no-ff || { echo &apos;*** ERROR *** : merging ${1} failed&apos; ; exit 1; }
+done
+
+exit 0;
+
+echo &apos;Merging frameworks/base...&apos;
+cd $source/frameworks/base
+git fetch cm
+git merge cm/cm-12.0 --no-ff || { echo &apos;*** ERROR *** : Frameworks/base merge failed&apos; ; exit 1; }
+
+
+echo &apos;Merging device/oneplus/bacon...&apos;
+cd $source/device/oneplus/bacon
+git fetch cm
+git merge cm/cm-12.0 --no-ff || { echo &apos;*** ERROR *** : device/oneplus/bacon merge failed&apos; ; exit 1; }
+
+echo &apos;Merging external/tinycompress...&apos;
+cd $source/external/tinycompress
+git fetch cm
+git merge cm/cm-12.0 --no-ff || { echo &apos;*** ERROR *** : external/tinycompress merge failed&apos; ; exit 1; }
+
+echo &apos;Merging frameworks/av...&apos;
+cd $source/frameworks/av
+git fetch cm
+git merge cm/cm-12.0 --no-ff || { echo &apos;*** ERROR *** : frameworks/av failed&apos; ; exit 1; }
+
+echo &apos;Merging frameworks/native...&apos;
+cd $source/frameworks/native
+git fetch cm
+git merge cm/cm-12.0 --no-ff || { echo &apos;*** ERROR *** : frameworks/native failed&apos; ; exit 1; }
+
+echo &apos;Merging device/oppo/msm8974-common...&apos;
+cd $source/device/oppo/msm8974-common
+git fetch cm
+git merge cm/cm-12.0 --no-ff || { echo &apos;*** ERROR *** : device/oppo/msm8974-common failed&apos; ; exit 1; }
+
+echo &apos;Merging system/core...&apos;
+cd $source/system/core
+git fetch cm
+git merge cm/cm-12.0 --no-ff || { echo &apos;*** ERROR *** : system/core failed&apos; ; exit 1; }
+
+echo &apos;Merging libcore...&apos;
+cd $source/libcore
+git fetch cm
+git merge cm/cm-12.0 --no-ff || { echo &apos;*** ERROR *** : libcore failed&apos; ; exit 1; }
+
+echo &apos;Merging external/skia...&apos;
+cd $source/external/skia
+git fetch cm
+git merge cm/cm-12.0 --no-ff || { echo &apos;*** ERROR *** : external/skia failed&apos; ; exit 1; }
+
+echo &apos;Merging art...&apos;
+cd $source/art
+git fetch cm
+git merge cm/cm-12.0 --no-ff || { echo &apos;*** ERROR *** : art failed&apos; ; exit 1; }
+
+echo &apos;Merging bionic...&apos;
+cd $source/bionic
+git fetch cm
+git merge cm/cm-12.0 --no-ff || { echo &apos;*** ERROR *** : bionic failed&apos; ; exit 1; }
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
