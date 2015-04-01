@@ -14,19 +14,11 @@
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash
-echo &quot;Building for LG Devices&quot;</command>
+cd /android/exodus
+repo init -u git@github.com:TeamExodus/private_platform_manifest.git -b EXODUS
+repo sync -j12</command>
     </hudson.tasks.Shell>
   </builders>
-  <publishers>
-    <hudson.tasks.BuildTrigger>
-      <childProjects>Exodus Build G3 (VS985),Exodus Build G2 (VS980),Exodus Build G2 (LS980),Exodus Build V500,Exodus Build e980</childProjects>
-      <threshold>
-        <name>UNSTABLE</name>
-        <ordinal>1</ordinal>
-        <color>YELLOW</color>
-        <completeBuild>true</completeBuild>
-      </threshold>
-    </hudson.tasks.BuildTrigger>
-  </publishers>
+  <publishers/>
   <buildWrappers/>
 </project>

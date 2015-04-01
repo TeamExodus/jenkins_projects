@@ -14,19 +14,19 @@
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash
-echo &quot;Building for LG Devices&quot;</command>
+
+#command to compile the roms
+#/android/compile.sh is the mainscript with currently 4 parameters
+#$1 = Vendorname for mka ${Vendor}_Device-userdebug
+#$2 = Developer Name for the sourcefolder (currently vanir for stock vanir or exodus for vanired exodus)
+#$3 = Device (eg bacon)
+#$4 = Y/y for mka clobber or eg N for no clobber
+#eg /android/compile.sh vanir vanir bacon n compiles the original vanir version of vanir (lol) for bacon with no clobber
+
+/android/compile.sh vanir exodus kltespr N
+</command>
     </hudson.tasks.Shell>
   </builders>
-  <publishers>
-    <hudson.tasks.BuildTrigger>
-      <childProjects>Exodus Build G3 (VS985),Exodus Build G2 (VS980),Exodus Build G2 (LS980),Exodus Build V500,Exodus Build e980</childProjects>
-      <threshold>
-        <name>UNSTABLE</name>
-        <ordinal>1</ordinal>
-        <color>YELLOW</color>
-        <completeBuild>true</completeBuild>
-      </threshold>
-    </hudson.tasks.BuildTrigger>
-  </publishers>
+  <publishers/>
   <buildWrappers/>
 </project>

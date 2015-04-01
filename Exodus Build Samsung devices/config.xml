@@ -19,7 +19,7 @@ echo &quot;Building for Samsung Devices&quot;</command>
   </builders>
   <publishers>
     <hudson.tasks.BuildTrigger>
-      <childProjects>Exodus Build jfltespr,Exodus Build jfltevzw,Exodus Build klte,Exodus Build d2att,Exodus Build d2spr</childProjects>
+      <childProjects>Exodus Build jfltespr,Exodus Build jfltevzw,Exodus Build jflteusc,Exodus Build klte,Exodus Build kltespr,Exodus Build d2att,Exodus Build d2spr</childProjects>
       <threshold>
         <name>UNSTABLE</name>
         <ordinal>1</ordinal>
