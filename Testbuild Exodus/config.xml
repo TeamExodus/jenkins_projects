@@ -2,6 +2,12 @@
 <project>
   <actions/>
   <description></description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>10</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties/>
   <scm class="hudson.scm.NullSCM"/>
@@ -14,13 +20,13 @@
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash
-cd /android/exodus
-BuildVendor=vanir
-BuildDev=exodus
-BuildDevice=bacon
+BuildVendor=exodus
+BuildDev=next
+BuildDevice=shamu
 BuildJobCount=8
 SourcePath=/android/${BuildDev}
-mkdir /ccache/new
+cd /android/${BuildDev}
+mkdir /ccache/${BuildDev}
 #Buildscript
 cd ${SourcePath}
 
@@ -35,13 +41,13 @@ source build/envsetup.sh
 if [ -a out/target/product/${BuildDevice}/system/build.prop ]; then
     rm out/target/product/${BuildDevice}/system/build.prop
 fi
-lunch ${BuildVendor}_${BuildDevice}-userdebug
-mka clobber
-#make clobber
-export VANIR_PARALLEL_JOBS=&quot;-j$BuildJobCount&quot;
-mka bacon
-#breakfast bacon
-#brunch bacon</command>
+#lunch ${BuildVendor}_${BuildDevice}-userdebug
+#mka clobber
+#export VANIR_PARALLEL_JOBS=&quot;-j$BuildJobCount&quot;
+#mka bacon
+make clobber
+brunch shamu
+</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

@@ -11,7 +11,7 @@
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
     <hudson.triggers.TimerTrigger>
-      <spec>0 21 * * *</spec>
+      <spec>0 22 * * *</spec>
     </hudson.triggers.TimerTrigger>
   </triggers>
   <concurrentBuild>false</concurrentBuild>
@@ -19,6 +19,21 @@
     <hudson.tasks.Shell>
       <command>#!/bin/bash
 cd /android/exodus
+#repo sync -j12
+if [ ! -d .repo/snapshots ]; then
+   mkdir .repo/snapshots
+   cd .repo/snapshots
+   git init
+   git remote add exodus git@github.com:TeamExodus/nightly_build_manifest_snapshots
+   git fetch exodus
+   git checkout exodus/EXODUS
+   cd /android/exodus
+else
+   cd .repo/snapshots
+   git fetch exodus
+   git checkout exodus/EXODUS
+   cd /android/exodus
+fi
 thetime=`date +%Y-%m-%d--%H%M%S` #
 repo manifest -o .repo/snapshots/nightly_$thetime.xml -r
 cd .repo/snapshots
@@ -28,12 +43,13 @@ git commit -F ~/snapshotcommit
 rm ~/snapshotcommit
 git push exodus HEAD:EXODUS
 cd /android/exodus
-rm -rf out</command>
+rm -rf out
+rm Changelog-*.txt</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
     <hudson.tasks.BuildTrigger>
-      <childProjects>Exodus Build Google Devices,Exodus Build HTC Devices,Exodus Build LG Devices,Exodus Build Motorolla Devices,Exodus Build OnePlus and Oppo Devices,Exodus Build Samsung devices,Exodus Build Sony Devices</childProjects>
+      <childProjects>Exodus Build Google Devices,Exodus Build HTC Devices,Exodus Build LG Devices,Exodus Build Motorola Devices,Exodus Build OnePlus and Oppo Devices,Exodus Build Samsung devices,Exodus Build Sony Devices,Exodus Build Nvidia Devices</childProjects>
       <threshold>
         <name>UNSTABLE</name>
         <ordinal>1</ordinal>

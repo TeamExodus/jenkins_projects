@@ -19,7 +19,7 @@ echo &quot;Building for Sony Devices&quot;</command>
   </builders>
   <publishers>
     <hudson.tasks.BuildTrigger>
-      <childProjects>Exodus Build Falcon,Exodus Build togari</childProjects>
+      <childProjects>Exodus Build togari</childProjects>
       <threshold>
         <name>UNSTABLE</name>
         <ordinal>1</ordinal>

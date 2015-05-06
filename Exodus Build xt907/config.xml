@@ -2,6 +2,12 @@
 <project>
   <actions/>
   <description></description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>7</daysToKeep>
+    <numToKeep>-1</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties/>
   <scm class="hudson.scm.NullSCM"/>
@@ -23,7 +29,7 @@
 #$4 = Y/y for mka clobber or eg N for no clobber
 #eg /android/compile.sh vanir vanir bacon n compiles the original vanir version of vanir (lol) for bacon with no clobber
 
-/android/compile.sh exodus exodus mako N
+/android/compile.sh exodus exodus xt907 N
 </command>
     </hudson.tasks.Shell>
   </builders>

@@ -23,7 +23,7 @@
 #$4 = Y/y for mka clobber or eg N for no clobber
 #eg /android/compile.sh vanir vanir bacon n compiles the original vanir version of vanir (lol) for bacon with no clobber
 
-/android/compile.sh vanir exodus shamu N
+/android/compile.sh exodus exodus shamu N
 </command>
     </hudson.tasks.Shell>
   </builders>

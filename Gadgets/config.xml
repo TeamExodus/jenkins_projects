@@ -14,9 +14,13 @@
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash
-cd /android/exodus
-repo init -u git@github.com:TeamExodus/private_platform_manifest.git -b EXODUS
-repo sync -j12</command>
+#cd /android/next/packages/apps
+#rm -rf ExodusUpdater
+#rm /var/www/html/experimental/shamu/*
+#cp /android/next/out/target/product/shamu/exodus-5.1-20150504-UNOFFICIAL-shamu.zip /var/www/html/experimental/shamu
+cd /android/OpenSource
+repo sync -j12
+</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
