@@ -20,33 +20,26 @@
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash
-BuildVendor=exodus
-BuildDev=next
+BuildDev=exodus-5.1
 BuildDevice=shamu
-BuildJobCount=8
 SourcePath=/android/${BuildDev}
 cd /android/${BuildDev}
 mkdir /ccache/${BuildDev}
 #Buildscript
 cd ${SourcePath}
 
+export CM_BUILDTYPE=EXPERIMENTAL
+
 export BUILD_WITH_COLORS=0
 export USE_CCACHE=1
 export CCACHE_DIR=/ccache/${BuildDev}/${BuildDevice}
 prebuilts/misc/linux-x86/ccache/ccache -M 10G
-#prebuilts/misc/linux-x86/ccache/ccache -C
 export USE_PREBUILT_CHROMIUM=1
 
 source build/envsetup.sh
-if [ -a out/target/product/${BuildDevice}/system/build.prop ]; then
-    rm out/target/product/${BuildDevice}/system/build.prop
-fi
-#lunch ${BuildVendor}_${BuildDevice}-userdebug
-#mka clobber
-#export VANIR_PARALLEL_JOBS=&quot;-j$BuildJobCount&quot;
-#mka bacon
-make clobber
-brunch shamu
+#make clobber
+brunch $BuildDevice
+build/tools/server/opendelta.sh ${BuildDevice}
 </command>
     </hudson.tasks.Shell>
   </builders>

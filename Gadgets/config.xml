@@ -2,6 +2,12 @@
 <project>
   <actions/>
   <description></description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>10</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties/>
   <scm class="hudson.scm.NullSCM"/>
@@ -14,13 +20,15 @@
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash
-#cd /android/next/packages/apps
-#rm -rf ExodusUpdater
-#rm /var/www/html/experimental/shamu/*
-#cp /android/next/out/target/product/shamu/exodus-5.1-20150504-UNOFFICIAL-shamu.zip /var/www/html/experimental/shamu
-cd /android/OpenSource
-repo sync -j12
-</command>
+#rm /var/www/html/experimental/*
+#cp /android/exodus-5.1/out/target/product/shamu/exodus-5.1-20150909-EXPERIMENTAL-shamu.zip /var/www/html/experimental/might_be_broken.zip
+cp /android/aosp/out/target/product/shamu/aosp_shamu-ota-15.zip /var/www/html/experimental/bttr.zip
+#/home/exodus/tools/merge
+#export GERRIT_USER=MartinRo
+#cd /android/aosp
+#cd build
+#ls
+#repo sync -j12</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

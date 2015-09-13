@@ -2,6 +2,12 @@
 <project>
   <actions/>
   <description></description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>10</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties/>
   <scm class="hudson.scm.NullSCM"/>
@@ -14,8 +20,17 @@
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash
-cd /android/exodus-5.1
-repo sync -j8</command>
+cd /android/aosp
+mkdir /ccache/aosp
+export BUILD_WITH_COLORS=0
+export USE_CCACHE=1
+export CCACHE_DIR=/ccache/aosp/shamu
+prebuilts/misc/linux-x86/ccache/ccache -M 10G
+export USE_PREBUILT_CHROMIUM=1
+source build/envsetup.sh
+lunch aosp_shamu-userdebug
+#make clobber
+make otapackage -j8</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

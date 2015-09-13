@@ -14,8 +14,9 @@
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash
-cd /android/exodus-5.1
-repo sync -j8</command>
+
+export GERRIT_USER=MartinRo
+gerritadd device_xiaomi_cancro</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

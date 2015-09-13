@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>10</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <hudson.triggers.TimerTrigger>
+      <spec>0 0 * * *</spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+cd /android/exodus-5.1
+rm -rf out
+rm Changelog-*.txt
+if [ ! -d .repo/snapshots ]; then
+   mkdir .repo/snapshots
+   cd .repo/snapshots
+   git init
+   git remote add exodus git@github.com:TeamExodus/nightly_build_manifest_snapshots
+   git fetch exodus
+   git checkout exodus/EXODUS-5.1
+   cd /android/exodus-5.1
+else
+   cd .repo/snapshots
+   git fetch exodus
+   git checkout exodus/EXODUS-5.1
+   cd /android/exodus-5.1
+fi
+thetime=`date +%Y-%m-%d--%H%M%S` #
+repo manifest -o .repo/snapshots/nightly_$thetime.xml -r
+cd .repo/snapshots
+git add nightly_$thetime.xml
+echo &quot;Nightly push for $thetime &quot; &gt;~/snapshotcommit
+git commit -F ~/snapshotcommit
+rm ~/snapshotcommit
+git push exodus HEAD:EXODUS-5.1
+
+cd /android/exodus-5.1
+export JOB_COUNT=6
+build/tools/server/nightlies.sh</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
