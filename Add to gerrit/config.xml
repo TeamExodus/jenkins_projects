@@ -16,7 +16,7 @@
       <command>#!/bin/bash
 
 export GERRIT_USER=MartinRo
-gerritadd device_xiaomi_cancro</command>
+gerritadd device_zuk_ham</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

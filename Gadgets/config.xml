@@ -21,14 +21,41 @@
     <hudson.tasks.Shell>
       <command>#!/bin/bash
 #rm /var/www/html/experimental/*
-#cp /android/exodus-5.1/out/target/product/shamu/exodus-5.1-20150909-EXPERIMENTAL-shamu.zip /var/www/html/experimental/might_be_broken.zip
-cp /android/aosp/out/target/product/shamu/aosp_shamu-ota-15.zip /var/www/html/experimental/bttr.zip
+#cp /android/exodus-5.1/out/target/product/shamu/exodus-5.1-20150922-EXPERIMENTAL-shamu.zip  /var/www/html/experimental/fishy.zip
+#rm /var/www/html/experimental/mylove.zip
+#cp /android/exodus-5.1/out/target/product/oneplus2/exodus-5.1-20151001-EXPERIMENTAL-oneplus2.zip /var/www/html/experimental/mylove.zip
+#cp /android/exodus-5.1/out/target/product/oneplus2/exodus-5.1-20151001-EXPERIMENTAL-oneplus2.zip.md5sum /var/www/html/experimental/mylove.zip.md5sum
+#rm /var/www/html/experimental/mylove.zip.md5sum
+#cp /android/exodus-6.0/out/target/product/shamu/exodus-6.0-20151108-EXPERIMENTAL-shamu.zip /var/www/html/experimental/bttr-6.0-r26.zip
 #/home/exodus/tools/merge
-#export GERRIT_USER=MartinRo
-#cd /android/aosp
-#cd build
+export GERRIT_USER=MartinRo
+#cd /home/exodus/android/exodus-6.0/device/moto/shamu
+#git cherry-pick --abort
+#cd /android/exodus-6.0
+#repo sync -j12
+#cd /home/exodus
+#cd binaries
+#./extract-qcom-shamu.sh
 #ls
-#repo sync -j12</command>
+#ls -l /android/aosp/out/target/product/shamu/system/etc
+#cd /android/aosp/frameworks/base
+#push private_frameworks_base bttr
+
+#cd /android/exodus-5.1
+#rm -rf out
+#build/tools/server/compile.sh exodus-5.1 find7
+
+#cd /android/aosp/build
+#push private_build bttr
+#ls -l /android/aosp/out/target/product/shamu/*.zip
+#ls -l /var/www/html/experimental/*.zip
+#cd /android/exodus-6.0/vendor/motorola/shamu
+#push vendor_motorola_shamu refs/for/EXODUS-6.0
+#cd ~/gerrit/git/kernel_oneplus_msm8974.git
+#git fetch
+
+cd ~/android/cm
+repo sync -j12</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

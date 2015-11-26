@@ -21,7 +21,7 @@
     <hudson.tasks.Shell>
       <command>#!/bin/bash
 BuildDev=exodus-5.1
-BuildDevice=shamu
+BuildDevice=bacon
 SourcePath=/android/${BuildDev}
 cd /android/${BuildDev}
 mkdir /ccache/${BuildDev}
@@ -37,9 +37,9 @@ prebuilts/misc/linux-x86/ccache/ccache -M 10G
 export USE_PREBUILT_CHROMIUM=1
 
 source build/envsetup.sh
-#make clobber
+export JOB_COUNT=6
+make clobber
 brunch $BuildDevice
-build/tools/server/opendelta.sh ${BuildDevice}
 </command>
     </hudson.tasks.Shell>
   </builders>

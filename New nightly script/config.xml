@@ -51,7 +51,7 @@ rm ~/snapshotcommit
 git push exodus HEAD:EXODUS-5.1
 
 cd /android/exodus-5.1
-export JOB_COUNT=6
+export JOB_COUNT=4
 build/tools/server/nightlies.sh</command>
     </hudson.tasks.Shell>
   </builders>

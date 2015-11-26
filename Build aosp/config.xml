@@ -20,19 +20,27 @@
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash
-cd /android/aosp
-mkdir /ccache/aosp
-export BUILD_WITH_COLORS=0
+cd /android/exodus-6.0
+#cd /android/cm
+#rm -rf /ccache/exodus-6.0
+#mkdir /ccache/exodus-6.0
+#mkdir /ccache/cm
 export USE_CCACHE=1
-export CCACHE_DIR=/ccache/aosp/shamu
+export CCACHE_DIR=/ccache/exodus-6.0/shamu
+#export CCACHE_DIR=/ccache/cm/shamu
 prebuilts/misc/linux-x86/ccache/ccache -M 10G
-export USE_PREBUILT_CHROMIUM=1
 source build/envsetup.sh
-lunch aosp_shamu-userdebug
+#lunch exodus_shamu-userdebug
+#lunch cm_shamu-userdebug
 #make clobber
-make otapackage -j8</command>
+#make otapackage -j8
+brunch shamu</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
-  <buildWrappers/>
+  <buildWrappers>
+    <hudson.plugins.ansicolor.AnsiColorBuildWrapper plugin="ansicolor@0.4.2">
+      <colorMapName>xterm</colorMapName>
+    </hudson.plugins.ansicolor.AnsiColorBuildWrapper>
+  </buildWrappers>
 </project>
